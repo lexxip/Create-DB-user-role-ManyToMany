@@ -1,0 +1,38 @@
+create table users
+(
+    id        bigint       not null auto_increment primary key,
+    firstname varchar(255) not null,
+    lastname  varchar(255) not null,
+    age       tinyint      not null,
+    email     varchar(255) not null,
+    password  varchar(255) not null
+)
+    engine = InnoDB;
+
+create table roles
+(
+    id   bigint       not null auto_increment primary key,
+    name varchar(255) not null
+)
+    engine = InnoDB;
+
+create table users_roles
+(
+    user_id bigint not null,
+    role_id bigint not null,
+    foreign key (user_id) references users (id),
+    foreign key (role_id) references roles (id),
+    unique (user_id, role_id)
+)
+    engine = InnoDB;
+
+insert into users
+values (1, '', '', 0, 'admin@mail.ru', '$2a$10$wA5YWbj3SCu/U1/3QGSJ.OnoYb6u2OsuZauNi5cI0Hwaxpi.GH6vm');
+
+insert into roles
+values (1, 'ROLE_ADMIN');
+insert into roles
+values (2, 'ROLE_USER');
+
+insert into users_roles
+values (1, 1);
